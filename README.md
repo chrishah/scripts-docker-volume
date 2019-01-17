@@ -6,12 +6,17 @@ Start the container as `my_scripts`, based on the image, which will have a direc
 docker run --name my_scripts chrishah/scripts-docker-volume
 ```
 
-Now run any container with software, accessing a script from the volume:
+Now run any container with software, accessing a script from the volume. As an example we'll run the script `hello.sh` using three different docker containers. The script just does a couple of `echo`s and then executes a program called `kmc`. The first image `chrishah/kmc3-docker` has kmc version three installed. The second image `chrishah/mitobim` does not have `kmc` installed so this will give an error. The third image `chrishah/bless` has kmc version 2 installed.
+
 ```bash
 docker run --rm --volumes-from my_scripts chrishah/kmc3-docker /scripts/hello.sh
 docker run --rm --volumes-from my_scripts chrishah/mitobim /scripts/hello.sh
-docker run --rm --volumes-from my_scripts -v $(pwd):/in/ -w /in/ chrishah/bless /scripts/hello.sh
-docker run --rm --volumes-from my_scripts -v $(pwd):/in/ -w /in/ chrishah/bless /scripts/bless_iterate_over_ks.sh testdata/test.1.fastq.gz test 21
+docker run --rm --volumes-from my_scripts chrishah/bless /scripts/hello.sh
+```
+
+Now, let's test a script to actually process data that is present on our local machine (in `./testdata/`) using a script from the Volume, that runs a program installed in the image.
+docker run --rm --volumes-from my_scripts -v $(pwd):/in/ -w /in/ chrishah/bless \
+	/scripts/bless_iterate_over_ks.sh testdata/test.1.fastq.gz test 21
 ```
 
 Once you're done, you can remove the volume container:
