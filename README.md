@@ -25,3 +25,8 @@ Once you're done, you can remove the volume container:
 ```bash
 docker rm my_scripts
 ```
+
+Once you've removed the container you can also remove the volume. The following will remove all volumes not currently in use:
+```bash
+docker volume rm $(docker volume ls -q)
+```
