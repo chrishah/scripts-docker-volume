@@ -14,7 +14,8 @@ docker run --rm --volumes-from my_scripts chrishah/mitobim /scripts/hello.sh
 docker run --rm --volumes-from my_scripts chrishah/bless /scripts/hello.sh
 ```
 
-Now, let's test a script to actually process data that is present on our local machine (in `./testdata/`) using a script from the Volume, that runs a program installed in the image.
+Now, let's test a script to actually process data that is present on our local machine (in `./testdata/`) using a script from the Volume (`my_scripts`), that runs a program installed in an image (`chrishah/bless`).
+```bash
 docker run --rm --volumes-from my_scripts -v $(pwd):/in/ -w /in/ chrishah/bless \
 	/scripts/bless_iterate_over_ks.sh testdata/test.1.fastq.gz test 21
 ```
