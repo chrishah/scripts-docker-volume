@@ -1,9 +1,9 @@
 # scripts-docker-volume
 Repo containing scripts with Dockerfile for preparing a Docker image Volume
 
-Start the container as `my_scripts`, which will have a directory `/scripts/`, which was mounted as `VOLUME`, that contains the scripts.
+Start the container as `my_scripts`, based on the image, which will have a directory `/scripts/`, which was mounted as `VOLUME`.
 ```bash
-docker run --name my_scripts chrishah/scripts
+docker run --name my_scripts chrishah/scripts-docker-volume
 ```
 
 Now run any container with software, accessing a script from the volume:
